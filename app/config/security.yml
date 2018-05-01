@@ -11,9 +11,11 @@ security:
             id: fos_user.user_provider.username
 
     firewalls:
-            dev:
-                pattern: ^/(_(profiler|wdt)|css|images|js)/
-                security: false
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
         main:
             pattern: ^/
             form_login:
