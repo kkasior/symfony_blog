@@ -1,0 +1,29 @@
+{% block body %}
+    <table>
+        <tr>
+            <td scope="col">title</td>
+            <td scope="col">author</td>
+            <td scope="col">created:</td>
+            <td scope="col">description</td>
+            <td scope="col">photo:</td>
+            <td scope="col">summary:</td>
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>{{ post.title }}</td>
+            <td>{{ post.author }}</td>
+            <td>{{ post.addedAt|date('Y-m-d') }}</td>
+            <td>{{ post.description }}</td>
+            <td>{{ post.photopath }}</td>
+            <td>{{ post.summary }}</td>
+
+        </tr>
+        </tbody>
+    </table>
+    </br>
+    </br>
+    <a href="/postlist">Back to list</a>
+{% endblock %}
