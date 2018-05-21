@@ -4,6 +4,7 @@ namespace AppBundle\Entity\blogusers;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * Post
  *
@@ -31,7 +32,7 @@ class Post
     /**
      * @var string
      *
-     * @ORM\Column(name="Author", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="FOSUser", inversedBy="post")
      */
     private $author;
 
@@ -63,12 +64,6 @@ class Post
      */
     private $summary;
 
-    /**
-     * @var string
-     *
-     * @ORM\ManyToOne(targetEntity="FOSUser", inversedBy="post")
-     */
-    private $FOSUser;
 
     /**
      * Get id

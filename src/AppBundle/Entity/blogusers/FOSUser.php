@@ -2,7 +2,10 @@
 
 namespace AppBundle\Entity\blogusers;
 
+
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * FOSUser
@@ -10,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="blogusers_f_o_s_user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\blogusers\FOSUserRepository")
  */
-class FOSUser
+class FOSUser extends BaseUser
 {
     /**
      * @var int
@@ -19,14 +22,24 @@ class FOSUser
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
+
+    /**
+     * FOSUser constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->posts = new ArrayCollection();
+    }
 
     /**
      * @var string
      *
-     * @ORM\OneToMany(targetEntity="post", mappedBy="FOSUser")
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="FOSUser")
      */
-    private $post;
+    private $posts;
+
 
     /**
      * Get id
@@ -37,5 +50,38 @@ class FOSUser
     {
         return $this->id;
     }
-}
 
+    /**
+     * Add post
+     *
+     * @param \AppBundle\Entity\blogusers\Post $post
+     *
+     * @return FOSUser
+     */
+    public function addPost(\AppBundle\Entity\blogusers\Post $post)
+    {
+        $this->posts[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param \AppBundle\Entity\blogusers\Post $post
+     */
+    public function removePost(\AppBundle\Entity\blogusers\Post $post)
+    {
+        $this->posts->removeElement($post);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+}
